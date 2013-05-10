@@ -2,8 +2,8 @@
 ;; TODO: Handle arrays
 (defun inflect-transform (arg transform-fn)
   "Transform ARG with TRANSFORM-FN. ARG can be an assoc list,
-hash table, string or a symbol. If ARG is an assoc list or hash
-table only the keys will be transformed."
+hash table, string or a symbol. When ARG is an association list
+or a hash table only the keys will be transformed."
   (cond
    ;; ((and (consp arg))
    ;;  (mapcar (lambda (c) (cons (inflect-transform (car c) transform-fn) (cdr c))) arg))
@@ -23,19 +23,21 @@ table only the keys will be transformed."
 
 (defun inflect-dasherize (arg)
   "Replace each underscore in ARG with a dash. ARG can be an
-association list, hash table, string or a symbol. If ARG is an
-association list or hash table only the keys will be dasherized."
+association list, hash table, string or a symbol. When ARG is an
+association list or a hash table only the keys will be
+dasherized."
   (inflect-transform arg (lambda (string) (replace-regexp-in-string "_" "-" string))))
 
 (defun inflect-underscore (arg)
   "Replace each underscore in ARG with a dash. ARG can be an
-association list, hash table, string or a symbol. If ARG is an
-association list or hash table only the keys will be underscored."
+association list, hash table, string or a symbol. When ARG is an
+association list or a hash table, only the keys will be
+underscored."
   (inflect-transform arg (lambda (string) (replace-regexp-in-string "-" "_" string))))
 
 (defun inflect-url-encode (params)
-  "Return a string that is PARAMS URI-encoded. PARAMS can be a
-number, string, symbol or an association list."
+  "Return a string that is URI-encoded. PARAMS can be a number,
+string, symbol or an association list."
   (cond
    ((stringp params)
     (url-hexify-string params))
